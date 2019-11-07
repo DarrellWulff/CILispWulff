@@ -1,0 +1,34 @@
+// Place your key bindings in this file to override the defaults
+[
+    {
+        "key": "ctrl+shift+o",
+        "command": "macros.OMPCompile",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+p",
+        "command": "macros.OMPRun",
+    }
+]
+
+{
+    "macros": 
+    {
+        "OMPCompile": 
+        [
+            "workbench.action.terminal.new",
+            {
+                "command": "workbench.action.terminal.sendSequence",
+                "args": {"text": "echo clang -Xpreprocessor -fopenmp -lomp -o src/${fileBasenameNoExtension}.out src/${fileBasename}"}
+            }
+        ],
+
+        "OMPRun":
+        [
+            {
+                "command": "workbench.action.terminal.sendSequence",
+                "args": {"text": "echo src/./${fileBasenameNoExtension}.out"}
+            }
+        ]
+    }
+}
