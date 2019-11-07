@@ -1,2 +1,2 @@
-# CILispWulff
-"Channel Islands Lisp" Compiler Project
+# OpenMP Lab for Comp262
+
