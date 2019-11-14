@@ -6,17 +6,24 @@
 //Work through videos first!!!
 
 #include <stdio.h>
+#include <string.h>
 #include <omp.h>
 #include <time.h>
 #include <ctype.h>
 
 
+
 int main(void)
 {
-    printf("\nOpenMP\n");
+    
 
-    FILE *inputFile = fopen("/home/wulff/Desktop/CSUCI/FALL2019/Comp262/OMPLab/Books/0.txt", "r");
+    char fileName[] = "/home/wulff/Desktop/CSUCI/FALL2019/Comp262/OMPLab/Books/0.txt";
 
+    //FILE *inputFile = fopen(fileName, "r");
+    //For changing file name later on
+    int nameLength = strlen(fileName);
+    
+    
     //Store each char from file as an int, don't bother with chars
     int asciiVal;
     //Store count values
@@ -34,23 +41,28 @@ int main(void)
     }
     
     start = clock();
-    while ((asciiVal = fgetc(inputFile)) != EOF)
+    for (int book = 0; book < 10; book++)
     {
-        //Check if ascii value is a letter
-        if ((asciiVal >= 65 && asciiVal <= 90) || (asciiVal >= 97 && asciiVal <= 122))
+        FILE *inputFile = fopen(fileName, "r");
+        while ((asciiVal = fgetc(inputFile)) != EOF)
         {
-            //make lower case if it is not already
-            asciiVal = tolower(asciiVal);
+            //Check if ascii value is a letter
+            if ((asciiVal >= 65 && asciiVal <= 90) || (asciiVal >= 97 && asciiVal <= 122))
+            {
+                //make lower case if it is not already
+                asciiVal = tolower(asciiVal);
 
-            //Add to the count at the right spot in the alphabet
-            alphabet[asciiVal - 97]++;
-        }
+                //Add to the count at the right spot in the alphabet
+                alphabet[asciiVal - 97]++;
+            }
         
+        }
+        fileName[nameLength-5] = (book+1) + 48;
+        fclose(inputFile);
     }
     end = clock();
     timeTotal = ((double) end - start) / CLOCKS_PER_SEC;
-    fclose(inputFile);
-
+    
     printf("\nCompleted in %lf seconds\n", timeTotal);
 
     //print values
