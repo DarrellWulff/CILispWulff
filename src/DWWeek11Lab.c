@@ -8,7 +8,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <omp.h>
-#include <time.h>
 #include <ctype.h>
 
 
@@ -16,7 +15,7 @@
 int main(void)
 {
     
-
+    
     char fileName[] = "/home/wulff/Desktop/CSUCI/FALL2019/Comp262/OMPLab/Books/0.txt";
 
     //FILE *inputFile = fopen(fileName, "r");
@@ -31,8 +30,8 @@ int main(void)
 
     //TIMER 
     double timeTotal;
-    clock_t start;
-    clock_t end;
+    double start;
+    double end;
 
     //Initailaize Array Values to zero
     for (int i = 0; i < 26; i++)
@@ -40,7 +39,7 @@ int main(void)
         alphabet[i] = 0;
     }
     
-    start = clock();
+    start = omp_get_wtime();
     for (int book = 0; book < 10; book++)
     {
         FILE *inputFile = fopen(fileName, "r");
@@ -60,8 +59,8 @@ int main(void)
         fileName[nameLength-5] = (book+1) + 48;
         fclose(inputFile);
     }
-    end = clock();
-    timeTotal = ((double) end - start) / CLOCKS_PER_SEC;
+    end = omp_get_wtime();
+    timeTotal = end - start;
     
     printf("\nCompleted in %lf seconds\n", timeTotal);
 
